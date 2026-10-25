@@ -21,3 +21,8 @@ potted and tall plants beside doorways; and red, gold and indigo shop banners ha
 Props share meshes, so each prop type is exported once and reused.
 
 **Notes:** lanterns and windows are emissive materials; enable bloom in your game engine for the glow.
+
+## Scene 2: Lantern River (work in progress)
+
+`blender/lantern_river.blend` holds the LanternRiver scene: terrain, a river, a wooden bridge with hanging
+lanterns, and a riverside house with a porch and glowing paper windows. It has no camera or world yet.
