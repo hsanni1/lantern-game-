@@ -1,5 +1,13 @@
 # Lantern Game
 
+## Play the village
+
+Walk from the market across the river to the temple and the thatched home marked on the village map. The north-up map tracks the boy’s position and heading. Market, Minka and Golden hour set the starting view and lighting for the same valley.
+
+Use W/S to walk, A/D to turn, and Shift to run. On touch screens, drag up or down and hold to walk, or drag sideways to turn. At the fruit counter, press E or tap the purchase button. A mandarin costs 3 mon, and your purse and fruit count update with each purchase.
+
+From `web`, run `npm ci` and `npm run build`. Open `dist/index.html` in a WebGL-capable browser. The build embeds the boy, fonts and Three.js.
+
 ## Scene 1: Festival Street
 
 A semi-realistic night street in a lantern festival town, built in Blender 5.2.
