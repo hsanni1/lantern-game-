@@ -71,7 +71,8 @@ async function start(){
   function travel(key){
     const d=districts[key];world=key;keys.clear();drag=null;dirty=true;
     host.dataset.world=key;document.body.dataset.world=key;
-    $('#place').textContent=d.name;$('#hint').textContent=d.hint;
+    $('#place').textContent=d.name;
+    $('#hint').textContent=key==='market'?(trade.purchaseHint()??d.hint):d.hint;
     const [x,z]=d.spawn;floor=walkHeight(x,z)??groundHeight(x,z);
     boy.position.set(x,floor+.022,z);boy.rotation.y=d.yaw;
     feet.forEach(m=>m.morphTargetInfluences[0]=0);camera(true);

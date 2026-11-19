@@ -19,6 +19,10 @@ export function marketTrade(scene,boy,button,purse,message,reduced){
   function nearCounter(){
     return Math.hypot(boy.position.x-11.8,boy.position.z-2.65)<2.2;
   }
+  function purchaseHint(){
+    if(items===0)return null;
+    return coins<price?'Mandarin collected · 3 mon needed for another':'Mandarin collected';
+  }
   function update(now){
     const near=nearCounter();
     button.hidden=!near;
@@ -37,10 +41,10 @@ export function marketTrade(scene,boy,button,purse,message,reduced){
     if(!nearCounter()||coins<price||start!==null)return false;
     coins-=price;items++;
     purse.textContent=coins+' mon · '+items+(items===1?' mandarin':' mandarins');
-    message.textContent=coins<price?'Mandarin collected · 3 mon needed for another':'Mandarin collected';
+    message.textContent=purchaseHint();
     start=reduced.matches?null:now;update(now);
     return true;
   }
   purse.textContent='10 mon';
-  return {buy,update};
+  return {buy,update,purchaseHint};
 }
