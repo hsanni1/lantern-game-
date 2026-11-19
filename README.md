@@ -2,9 +2,11 @@
 
 ## Play the village
 
-Walk as the green-robed boy in four settings. Use W/S or ↑/↓ to walk, A/D or ←/→ to turn, and Shift to run. Touch screens have movement buttons. In Adventure Market, approach the fruit counter and press E to buy a mandarin. The Festival button takes you to the exported Blender street.
+Walk from the market across the river to the temple and the thatched home marked on the village map. The north-up map tracks the boy’s position and heading. Market, Minka and Golden hour set the starting view and lighting for the same valley.
 
-From `web`, run `npm ci` and `npm run build`. Open `dist/index.html` in a WebGL-capable browser. The build embeds the models, fonts and Three.js.
+Use W/S to walk, A/D to turn, and Shift to run. On touch screens, drag up or down and hold to walk, or drag sideways to turn. At the fruit counter, press E or tap the purchase button. A mandarin costs 3 mon, and your purse and fruit count update with each purchase.
+
+From `web`, run `npm ci` and `npm run build`. Open `dist/index.html` in a WebGL-capable browser. The build embeds the boy, fonts and Three.js.
 
 ## Scene 1: Festival Street
 

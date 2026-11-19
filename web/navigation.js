@@ -6,6 +6,11 @@ export function walkHeight(x,z){
     return lawn+.18+.57*Math.max(0,1-(archedX/1.9)**2);
   if(Math.abs(z+9.7)<.44&&Math.abs(x-river(-9.7))<breadth(-9.7)+.68)return .625;
   if(Math.abs(x-river(z))<breadth(z)+.13)return null;
+  // Surfaces of the open house, shrine porch and its intermediate step.
+  if(Math.abs(x+13)<1.74&&Math.abs(z-1.4)<1.35)return lawn+.29;
+  const porchZ=z+3.87;
+  if(Math.abs(x+3.7)<1.94&&porchZ>-1.46&&porchZ<1.72)return lawn+1.10+.39;
+  if(Math.abs(x+3.7)<.67&&porchZ>=1.72&&porchZ<2.08)return lawn+1.10+.19;
   if(Math.abs(x+3.7)<3.15&&Math.abs(z+3.78)<2.32)return lawn+1.10;
   if(Math.abs(x+3.6)<.76&&z<.16&&z>-1.52)return lawn+.18*Math.min(6,Math.max(1,1+Math.floor((.13-z)/.25)));
   return groundHeight(x,z);
@@ -19,8 +24,8 @@ export function canEnter(x,z,height,buildings){
 
 // Shorten the follow arm before an obstruction can hide the character.
 const arm=new Ray(),expanded=new Box3(),intersection=new Vector3();
-export function followCamera(player,eye,obstacles){
-  arm.origin.copy(player);arm.origin.y+=1.12;
+export function followCamera(player,eye,obstacles,pivotHeight=1.12){
+  arm.origin.copy(player);arm.origin.y+=pivotHeight;
   arm.direction.subVectors(eye,arm.origin);
   let length=arm.direction.length();
   if(length===0)return;

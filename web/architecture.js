@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { V, group, piece, box, rock, post, beam, quad, triangles, pick, range } from './geometry.js';
+import {openRoom} from './rooms.js';
 import { lawn } from './valley.js';
 
 const wood=0x76503d, dark=0x59463c, vermilion=0xb44934, cream=0xf2dfb4;
@@ -134,9 +135,12 @@ function house(g,{x,z,y=lawn,w=3,d=2,h=1.78,turn=0,tiles=blue,banner,shop}){
 function temple(g){
   const b=group(g,-3.7,lawn+1.10,-3.87);
   porch(b,3.45,2.62);
-  box(b,0,1.33,0,2.98,1.9,2.10,0xf0d8a3);
+  openRoom(b,2.98,2.10,.37,2.28,1.16,0xf0d8a3);
+  // One low entry step bridges the terrace and the raised timber porch.
+  box(b,0,.095,1.87,1.28,.19,.39,wood);
+  box(b,0,.44,-.68,1.45,.15,.37,wood);
   for(const s of [-1,1]){
-    for(const xx of [-1.5,0,1.5])box(b,xx,1.35,s*1.08,.13,1.99,.14,vermilion);
+    for(const xx of [-1.5,1.5])box(b,xx,1.35,s*1.08,.13,1.99,.14,vermilion);
     shoji(b,s*.95,1.47,1.075,.77,.91);
     for(const zz of [-.61,.61]){
       const a=group(b,s*1.52,1.45,zz,s*Math.PI/2);shoji(a,0,0,0,.76,.92);
@@ -148,7 +152,7 @@ function temple(g){
     box(b,0,2.28,s*1.32,3.8,.17,.16,vermilion);
     lantern(b,s*1.32,1.93,1.4,.19);
   }
-  box(b,0,1.11,1.095,.77,1.48,.10,dark);
+  shoji(b,-1.05,1.18,1.16,.72,1.56);
   sign(b,0,2.24,1.427,.62,.26,'神社','#3e544f','#f6d389');
   roof(b,2.52,4.68,3.76,1.12,blue);
   box(b,0,3.70,0,2.1,.97,1.48,cream);
@@ -313,9 +317,22 @@ export function buildings(g, farmhouse){
     [6.7,-11.3,3.7,2.3,.18],[13.1,-17,3.1,2.4,.14],
     [-19.3,8.1,2.9,1.95,2.8]
   ];
-  for(const [i,[x,z,w,d,turn]] of cottages.entries())(x<0 ? farmhouse : cottage)(group(homes,x,lawn,z,turn),w,d,i);
+  for(const [i,[x,z,w,d,turn]] of cottages.entries()){
+    const home=i===0;
+    const building=group(homes,x,lawn,z,home?0:turn);
+    if(x<0)farmhouse(building,w,d,home);
+    else cottage(building,w,d,i);
+  }
   homes.updateWorldMatrix(true,true);
-  return homes.children.map(home=>new THREE.Box3().setFromObject(home));
+  const footprints=[],obstacles=[];
+  for(const home of homes.children){
+    const bounds=new THREE.Box3().setFromObject(home);
+    footprints.push(bounds);
+    if(home.userData.walls){
+      for(const wall of home.userData.walls)obstacles.push(new THREE.Box3().setFromObject(wall));
+    }else obstacles.push(bounds);
+  }
+  return {footprints,obstacles};
 }
 
 // Plaster gable ends, staggered roof courses and a timber lean-to distinguish the
