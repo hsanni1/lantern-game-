@@ -1,5 +1,11 @@
 # Lantern Game
 
+## Play the village
+
+Walk as the green-robed boy in four settings. Use W/S or ↑/↓ to walk, A/D or ←/→ to turn, and Shift to run. Touch screens have movement buttons. In Adventure Market, approach the fruit counter and press E to buy a mandarin. The Festival button takes you to the exported Blender street.
+
+From `web`, run `npm ci` and `npm run build`. Open `dist/index.html` in a WebGL-capable browser. The build embeds the models, fonts and Three.js.
+
 ## Scene 1: Festival Street
 
 A semi-realistic night street in a lantern festival town, built in Blender 5.2.
